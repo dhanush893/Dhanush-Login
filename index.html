@@ -1,71 +1,30 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#11111a">
-<title>Creator Glow</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Creator Glow • Profile Verification</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
 <main class="app">
-  <nav class="topbar glass">
-    <div class="brand"><span class="brand-mark">✦</span><span>Creator Glow</span></div>
-    <span class="status"><i></i> Online tools</span>
-  </nav>
-
-  <section class="hero">
-    <div class="hero-copy">
-      <div class="eyebrow glass">CREATOR EXPERIENCE</div>
-      <h1>Make your profile<br><span>stand out.</span></h1>
-      <p>A premium creator-growth interface with a polished social aesthetic, campaign previews and profile-focused goals.</p>
-    </div>
-
-    <div class="profile-card glass">
-      <div class="profile-top">
-        <div class="avatar"><span>@</span></div>
-        <div><strong id="previewName">yourcreator</strong><small>Creator profile preview</small></div>
-      </div>
-      <div class="metric-row">
-        <div><b>—</b><small>Audience</small></div>
-        <div><b>—</b><small>Reach</small></div>
-        <div><b>—</b><small>Engagement</small></div>
-      </div>
-      <div class="profile-shimmer"></div>
-    </div>
-  </section>
-
-  <section class="workspace glass">
-    <div class="workspace-head">
-      <div><span class="step">01</span><h2>Create a profile campaign</h2></div>
-      <p>Choose a public profile and a transparent growth goal.</p>
-    </div>
-
-    <form id="campaignForm">
-      <div class="field">
-        <label for="username">Public profile</label>
-        <div class="input-wrap"><span>@</span><input id="username" placeholder="yourusername" maxlength="30" autocomplete="off" required></div>
-      </div>
-
-      <div class="field">
-        <label>Campaign focus</label>
-        <div class="goals">
-          <button type="button" class="goal active" data-goal="Profile discovery">✦ <span>Discovery</span></button>
-          <button type="button" class="goal" data-goal="Content reach">◉ <span>Reach</span></button>
-          <button type="button" class="goal" data-goal="Community engagement">♡ <span>Engagement</span></button>
-        </div>
-      </div>
-
-      <button class="primary" type="submit"><span>Create campaign preview</span><b>→</b></button>
-      <p id="message" role="status"></p>
-    </form>
-
-    <div class="disclaimer">Designed for campaign previews and creator tools. This website does not request social-media passwords or guarantee followers.</div>
-  </section>
-
-  <footer>CREATOR GLOW <span>•</span> PREMIUM SOCIAL EXPERIENCE</footer>
-</main>
-<script src="script.js"></script>
-</body>
-</html>
+<nav class="topbar glass"><div class="brand"><span class="brand-mark">✦</span><span>Creator Glow</span></div><span class="status"><i></i> Secure verification</span></nav>
+<section class="hero">
+<div><div class="eyebrow glass">PROFILE VERIFICATION</div><h1>Verify your<br><span>creator profile.</span></h1><p>Connect through the official Instagram authorization flow. Your password is entered only on Instagram's official authorization page and is never collected by this website.</p></div>
+<div class="trust-card glass"><div class="shield">✓</div><h3>Trust-first connection</h3><p>Profile details are shown only after permitted authorization and API access.</p><div class="trust-list"><span>✓ No password collection</span><span>✓ Official authorization</span><span>✓ User confirmation</span></div></div>
+</section>
+<section class="workspace glass">
+<div class="workspace-head"><div><span class="step">01</span><h2>Connect your profile</h2></div><p>Use official authorization to verify the profile you control.</p></div>
+<button class="connect" id="connectBtn"><span class="ig-dot">◎</span><span>Continue with Instagram</span><b>→</b></button>
+<div class="divider"><span></span>OR<span></span></div>
+<div class="field"><label>Public username preview</label><div class="input-wrap"><span>@</span><input id="username" placeholder="yourusername" maxlength="30" autocomplete="off"></div><small>This preview does not fetch private data. Connect officially to verify profile details.</small></div>
+<section class="profile-panel" id="profilePanel" hidden>
+<div class="verified-line"><span>✓</span> Profile connected</div>
+<div class="profile-main"><div class="profile-photo" id="profilePhoto">◎</div><div><h3 id="profileUsername">@username</h3><p id="profileType">Instagram professional profile</p></div></div>
+<div class="stats"><div><b id="followers">—</b><small>Followers</small></div><div><b id="media">—</b><small>Posts</small></div><div><b id="accountType">—</b><small>Account type</small></div></div>
+<button class="confirm" id="confirmBtn">This is my profile ✓</button>
+</section>
+<p id="message" role="status"></p>
+<div class="disclaimer">Instagram is a third-party service. Profile data availability depends on account type, user authorization and permitted Meta/Instagram API access. This site does not request or store Instagram passwords.</div>
+</section>
+<footer>CREATOR GLOW <span>•</span> PROFILE VERIFICATION EXPERIENCE</footer>
+</main><script src="script.js"></script></body></html>
