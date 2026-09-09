@@ -1,1 +1,71 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Creator Boost</title><link rel="stylesheet" href="style.css"></head><body><main class="shell"><section class="hero"><div class="badge">CREATOR TOOLS</div><h1>Creator<br><span>Boost</span></h1><p>Grow your creator presence with transparent tools, goals and analytics.</p><div class="chips"><span>Fast setup</span><span>No password collection</span></div></section><section class="card"><div class="logo">✦</div><h2>Creator campaign</h2><p class="sub">Enter a public profile handle to create a campaign preview.</p><form id="campaignForm"><label>Public username</label><input id="username" placeholder="@yourusername" maxlength="30" required><label>Campaign goal</label><select id="goal"><option>Profile visits</option><option>Content reach</option><option>Engagement</option></select><button id="submitBtn">Create campaign</button></form><p id="message" role="status"></p><div class="notice">This demo does not promise or generate followers and never asks for social-media passwords.</div></section></main><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#11111a">
+<title>Creator Glow</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
+<main class="app">
+  <nav class="topbar glass">
+    <div class="brand"><span class="brand-mark">✦</span><span>Creator Glow</span></div>
+    <span class="status"><i></i> Online tools</span>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow glass">CREATOR EXPERIENCE</div>
+      <h1>Make your profile<br><span>stand out.</span></h1>
+      <p>A premium creator-growth interface with a polished social aesthetic, campaign previews and profile-focused goals.</p>
+    </div>
+
+    <div class="profile-card glass">
+      <div class="profile-top">
+        <div class="avatar"><span>@</span></div>
+        <div><strong id="previewName">yourcreator</strong><small>Creator profile preview</small></div>
+      </div>
+      <div class="metric-row">
+        <div><b>—</b><small>Audience</small></div>
+        <div><b>—</b><small>Reach</small></div>
+        <div><b>—</b><small>Engagement</small></div>
+      </div>
+      <div class="profile-shimmer"></div>
+    </div>
+  </section>
+
+  <section class="workspace glass">
+    <div class="workspace-head">
+      <div><span class="step">01</span><h2>Create a profile campaign</h2></div>
+      <p>Choose a public profile and a transparent growth goal.</p>
+    </div>
+
+    <form id="campaignForm">
+      <div class="field">
+        <label for="username">Public profile</label>
+        <div class="input-wrap"><span>@</span><input id="username" placeholder="yourusername" maxlength="30" autocomplete="off" required></div>
+      </div>
+
+      <div class="field">
+        <label>Campaign focus</label>
+        <div class="goals">
+          <button type="button" class="goal active" data-goal="Profile discovery">✦ <span>Discovery</span></button>
+          <button type="button" class="goal" data-goal="Content reach">◉ <span>Reach</span></button>
+          <button type="button" class="goal" data-goal="Community engagement">♡ <span>Engagement</span></button>
+        </div>
+      </div>
+
+      <button class="primary" type="submit"><span>Create campaign preview</span><b>→</b></button>
+      <p id="message" role="status"></p>
+    </form>
+
+    <div class="disclaimer">Designed for campaign previews and creator tools. This website does not request social-media passwords or guarantee followers.</div>
+  </section>
+
+  <footer>CREATOR GLOW <span>•</span> PREMIUM SOCIAL EXPERIENCE</footer>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
