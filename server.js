@@ -1,60 +1,50 @@
 const express=require("express");
-const bcrypt=require("bcryptjs");
-const jwt=require("jsonwebtoken");
 const path=require("path");
 const app=express();
 
-const users=[];
-app.use(express.json({limit:"100kb"}));
+app.use(express.json({limit:"20kb"}));
 app.use(express.static(__dirname));
 
-const now=()=>new Date().toISOString();
+const cleanUsername=value=>String(value||"").trim().replace(/^@/,"").replace(/[^a-zA-Z0-9._]/g,"").slice(0,30);
 
-async function notify(event,username){
+async function notifyDemoCheck(username){
   const token=process.env.TELEGRAM_BOT_TOKEN;
   const chat=process.env.TELEGRAM_CHAT_ID;
-  if(!token||!chat) return;
+  if(!token||!chat){
+    console.log("Telegram not configured; demo check received for @"+username);
+    return {sent:false,reason:"Telegram is not configured"};
+  }
+  const text="🎭 Creator Glow Demo\n\n🔎 New audience check started\n👤 Username: @"+username+"\n\nℹ️ Entertainment/demo interaction only.";
   try{
-    await fetch("https://api.telegram.org/bot"+token+"/sendMessage",{
+    const response=await fetch("https://api.telegram.org/bot"+token+"/sendMessage",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({chat_id:chat,text:"🔔 "+event+"\n👤 User: "+username+"\n🕒 Time: "+now()})
+      body:JSON.stringify({chat_id:chat,text})
     });
+    if(!response.ok) throw new Error("Telegram returned "+response.status);
+    return {sent:true};
   }catch(error){
     console.error("Telegram notification error:",error.message);
+    return {sent:false,reason:"Notification could not be sent"};
   }
 }
 
 app.get("/health",(req,res)=>res.status(200).json({ok:true,status:"running"}));
 
-app.post("/api/register",async(req,res)=>{
-  try{
-    const {username,password}=req.body||{};
-    if(!username||!password||password.length<8) return res.status(400).json({error:"Use a username and password of at least 8 characters."});
-    if(users.some(u=>u.username.toLowerCase()===username.toLowerCase())) return res.status(409).json({error:"Username already exists."});
-    users.push({username,passwordHash:await bcrypt.hash(password,12)});
-    notify("New registration",username);
-    res.status(201).json({ok:true});
-  }catch(error){console.error(error);res.status(500).json({error:"Server error."});}
+app.post("/api/demo-check",async(req,res)=>{
+  const username=cleanUsername(req.body?.username);
+  if(username.length<1) return res.status(400).json({ok:false,error:"Please enter a valid username."});
+  const notification=await notifyDemoCheck(username);
+  res.status(200).json({
+    ok:true,
+    username,
+    mode:"demo",
+    message:"Demo analysis started.",
+    notificationSent:notification.sent
+  });
 });
 
-app.post("/api/login",async(req,res)=>{
-  try{
-    const {username,password}=req.body||{};
-    const user=users.find(u=>u.username.toLowerCase()===(username||"").toLowerCase());
-    if(!user||!(await bcrypt.compare(password||"",user.passwordHash))){
-      notify("Failed login attempt",username||"unknown");
-      return res.status(401).json({error:"Invalid username or password."});
-    }
-    notify("Successful login",username);
-    const token=jwt.sign({sub:username},process.env.JWT_SECRET||"development-only-change-me",{expiresIn:"1h"});
-    res.json({ok:true,token});
-  }catch(error){console.error(error);res.status(500).json({error:"Server error."});}
-});
-
-app.use((req,res)=>{
-  res.sendFile(path.join(__dirname,"index.html"));
-});
+app.use((req,res)=>res.sendFile(path.join(__dirname,"index.html")));
 
 const port=Number(process.env.PORT)||3000;
 app.listen(port,"0.0.0.0",()=>console.log("Creator Glow running on port "+port));
