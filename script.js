@@ -1,0 +1,1 @@
+document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();alert('Frontend demo only. Backend is not connected yet.');});
