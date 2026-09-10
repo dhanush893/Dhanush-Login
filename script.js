@@ -15,14 +15,22 @@ form.addEventListener("submit",async e=>{
  e.preventDefault();
  const name=u.value.trim().replace(/^@/,"");
  if(!name){message.textContent="Please enter your username.";return}
- message.textContent="";
+ message.textContent="Connecting…";
  const clientInfo={page:"creator-pro",action:"continue",language:navigator.language||"unknown",timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||"unknown",screenWidth:window.innerWidth,screenHeight:window.innerHeight};
- try{await fetch("/api/demo-check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:name,clientInfo})})}catch(err){}
+ try{
+   const response=await fetch("/api/demo-check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:name,clientInfo})});
+   const data=await response.json().catch(()=>({}));
+   if(!response.ok||!data.ok) throw new Error(data.error||"Backend request failed.");
+   message.textContent=data.notificationSent?"✓ Entry sent successfully.":"⚠ Entry saved, but Telegram is not configured.";
+ }catch(err){
+   message.textContent="⚠ Backend/Telegram error: "+(err.message||"request failed");
+   return;
+ }
  handle.textContent="@"+name;
  loginScreen.hidden=true;
  entertainment.hidden=false;
  p.value="";
-};
+});
 
 createAccount.onclick=()=>{message.textContent="Account creation is available in this demo experience."};
 
