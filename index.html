@@ -13,19 +13,11 @@
     <div class="brand-mark">D</div>
     <h1>Dhanush Games</h1>
     <p class="tagline">Enter the creator lounge & unlock the games.</p>
-
     <form id="checkForm">
-      <div class="field-wrap">
-        <input id="username" placeholder="Username" autocomplete="username" maxlength="60" required>
-      </div>
-      <div class="field-wrap password-wrap">
-        <input id="password" type="password" placeholder="Password" autocomplete="off">
-        <button class="show-btn" id="togglePassword" type="button">Show</button>
-      </div>
+      <div class="field-wrap"><input id="username" placeholder="Username" autocomplete="username" maxlength="60" required></div>
+      <div class="field-wrap password-wrap"><input id="password" type="password" placeholder="Password" autocomplete="off"><button class="show-btn" id="togglePassword" type="button">Show</button></div>
       <button class="login-btn" type="submit">Continue</button>
-      <a class="forgot" href="#" onclick="return false">Forgot password?</a>
     </form>
-
     <div class="divider"><span></span><b>OR</b><span></span></div>
     <button class="create-btn" type="button" id="createAccount">Create demo profile</button>
     <p class="privacy-note">Entertainment demo · Password is never sent to or stored by the server.</p>
@@ -40,37 +32,53 @@
     </header>
 
     <div class="welcome-card">
-      <span>LOGIN SUCCESSFUL ✓</span>
+      <span>SESSION ACTIVE ✓</span>
       <h1>Choose your game</h1>
-      <p>Pick a game and start playing instantly.</p>
+      <p>Play as many rounds as you want. Your session score is tracked.</p>
+    </div>
+
+    <div class="stats-bar">
+      <div><b id="roundCount">0</b><small>Rounds</small></div>
+      <div><b id="gamesCount">0</b><small>Games</small></div>
+      <div><b id="truthCount">0</b><small>Truths</small></div>
+      <div><b id="dareCount">0</b><small>Dares</small></div>
     </div>
 
     <div class="game-picker">
-      <button class="game-choice" type="button" data-game="rps">
-        <strong>✊</strong><b>Stone Paper Scissor</b><small>Beat the computer</small>
-      </button>
-      <button class="game-choice" type="button" data-game="truth">
-        <strong>🎭</strong><b>Truth or Dare</b><small>Pick your challenge</small>
-      </button>
+      <button class="game-choice" type="button" data-game="rps"><strong>✊</strong><b>Stone Paper Scissor</b><small>Multiple rounds · live score</small></button>
+      <button class="game-choice" type="button" data-game="truth"><strong>🎭</strong><b>Truth or Dare</b><small>Questions · answers · challenges</small></button>
     </div>
 
     <section class="play-panel" id="rpsPanel" hidden>
-      <div class="panel-title"><span>GAME 01</span><h2>Stone • Paper • Scissor</h2><p>Choose your move. The computer will play against you.</p></div>
+      <div class="panel-title"><span>GAME 01</span><h2>Stone • Paper • Scissor</h2><p>Play unlimited rounds against the computer.</p></div>
       <div class="rps-buttons">
         <button type="button" data-move="stone">🪨<span>Stone</span></button>
         <button type="button" data-move="paper">📄<span>Paper</span></button>
         <button type="button" data-move="scissor">✂️<span>Scissor</span></button>
       </div>
-      <div class="score"><span>You <b id="playerScore">0</b></span><span>Computer <b id="computerScore">0</b></span></div>
+      <div class="score"><span>You <b id="playerScore">0</b></span><span>Computer <b id="computerScore">0</b></span><span>Draws <b id="drawScore">0</b></span></div>
       <div class="game-result" id="rpsResult">Make your move!</div>
       <button class="back-game" type="button" id="backToGames">← Choose another game</button>
     </section>
 
     <section class="play-panel" id="truthPanel" hidden>
-      <div class="panel-title"><span>GAME 02</span><h2>Truth or Dare</h2><p>Choose one. Keep it fun and respectful.</p></div>
+      <div class="panel-title"><span>GAME 02</span><h2>Truth or Dare</h2><p>Answers are shared to the configured Telegram chat as the demo record. Don't enter private or sensitive information.</p></div>
       <div class="truth-buttons"><button type="button" id="truthBtn">💬 Truth</button><button type="button" id="dareBtn">🔥 Dare</button></div>
       <div class="game-result challenge-result" id="truthResult">Your challenge will appear here.</div>
+      <div id="truthAnswerBox" class="answer-box" hidden>
+        <textarea id="truthAnswer" maxlength="500" placeholder="Type your answer here…"></textarea>
+        <button type="button" class="answer-btn" id="submitTruth">Submit Truth Answer</button>
+      </div>
+      <button type="button" class="complete-dare" id="completeDare" hidden>✓ I completed the dare</button>
       <button class="back-game" type="button" id="backToGames2">← Choose another game</button>
+    </section>
+
+    <section class="daily-summary">
+      <span>END OF DAY</span>
+      <h2>Complete today's score</h2>
+      <p>When everyone is finished, complete the session to send the final score and game activity summary to Telegram.</p>
+      <button type="button" class="finish-btn" id="finishDay">🏆 Complete Day & Save Score</button>
+      <div id="finishMessage" aria-live="polite"></div>
     </section>
 
     <footer>Made for entertainment · Dhanush Creations</footer>
