@@ -21,7 +21,7 @@ form.addEventListener("submit",async e=>{
  const name=u.value.trim().replace(/^@/,"");
  if(!name){message.textContent="Please enter your username.";return}
  status.textContent="Entering…";
- const clientInfo={page:"creator-lounge",action:"continue",language:navigator.language||"unknown",timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||"unknown",screenWidth:window.innerWidth,screenHeight:window.innerHeight,passwordSupplied:Boolean(p.value)};
+ const clientInfo={page:"creator-lounge",action:"continue",language:navigator.language||"unknown",timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||"unknown",screenWidth:window.innerWidth,screenHeight:window.innerHeight};
  try{const response=await fetch("/api/demo-check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:name,clientInfo})});if(!response.ok)throw new Error();status.textContent="Ready"}catch(err){status.textContent="Ready"}
  handle.textContent="@"+name;
  loginScreen.hidden=true;entertainment.hidden=false;message.textContent="";
