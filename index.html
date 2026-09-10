@@ -14,28 +14,30 @@
     <div class="brand">
       <div class="logo">◎</div>
       <h1>Creator Lounge</h1>
-      <p>Log in with your Instagram username</p>
+      <p>Enter your Instagram username to continue</p>
     </div>
 
     <form id="checkForm">
       <label for="username">Instagram username</label>
       <div class="field">
         <span>@</span>
-        <input id="username" placeholder="yourusername" autocomplete="username" maxlength="30" required>
-      </div>
-
-      <label for="password">Password</label>
-      <div class="field">
-        <input id="password" type="password" placeholder="Password" autocomplete="off">
-        <button type="button" class="eye" id="toggle">Show</button>
+        <input id="username" placeholder="yourusername" autocomplete="off" maxlength="30" required>
       </div>
 
       <div class="info-row">
-        <span>✦ Password transmission</span>
-        <b>FALSE</b>
+        <span>✦ Username</span>
+        <b id="preview">@yourusername</b>
+      </div>
+      <div class="info-row">
+        <span>✦ Characters</span>
+        <b id="count">0 / 30</b>
+      </div>
+      <div class="info-row">
+        <span>✦ Status</span>
+        <b id="status">Ready</b>
       </div>
 
-      <button class="submit" type="submit">Log in <b>→</b></button>
+      <button class="submit" type="submit">Continue <b>→</b></button>
     </form>
     <p id="message" aria-live="polite"></p>
   </section>
