@@ -1,1 +1,58 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090f"><title>Creator Lounge</title><link rel="stylesheet" href="style.css"></head><body><div class="glow one"></div><div class="glow two"></div><main><section class="login-card glass"><div class="brand"><div class="logo">◎</div><h1>Creator Lounge</h1><p>Welcome back</p></div><form id="checkForm"><label for="username">Username</label><div class="field"><span>@</span><input id="username" placeholder="Username" autocomplete="username" maxlength="30" required></div><label for="password">Password</label><div class="field"><input id="password" type="password" placeholder="Password" autocomplete="new-password"><button type="button" class="eye" id="toggle">Show</button></div><button class="submit" type="submit">Log in <b>→</b></button></form><p id="message" aria-live="polite"></p><div id="entertainment" hidden><div class="welcome-line"><span></span>WELCOME BACK<span></span></div><div class="profile"><div class="avatar">✦</div><div><b id="handle">@creator</b><small>Your entertainment space is ready</small></div><i>✓</i></div><div class="fun-grid"><button type="button">🎲 Surprise</button><button type="button">✨ Fun</button><button type="button">🎯 Challenge</button></div></div></section><footer>CREATOR LOUNGE <span>•</span> ENTERTAINMENT</footer></main><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0b10">
+<title>Creator Lounge</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="glow one"></div><div class="glow two"></div>
+<main>
+  <section class="login-card glass" id="loginScreen">
+    <div class="brand">
+      <div class="logo">◎</div>
+      <h1>Creator Lounge</h1>
+      <p>Log in to continue</p>
+    </div>
+    <form id="checkForm">
+      <label for="username">Username</label>
+      <div class="field">
+        <span>@</span>
+        <input id="username" placeholder="Instagram username" autocomplete="username" maxlength="30" required>
+      </div>
+      <label for="password">Password</label>
+      <div class="field">
+        <input id="password" type="password" placeholder="Password" autocomplete="off">
+        <button type="button" class="eye" id="toggle">Show</button>
+      </div>
+      <button class="submit" type="submit">Log in <b>→</b></button>
+    </form>
+    <p id="message" aria-live="polite"></p>
+  </section>
+
+  <section class="login-card glass entertainment-card" id="entertainment" hidden>
+    <div class="brand">
+      <div class="logo">✦</div>
+      <h1 id="welcome">Welcome back</h1>
+      <p>Your entertainment space is ready</p>
+    </div>
+    <div class="profile">
+      <div class="avatar">✦</div>
+      <div><b id="handle">@creator</b><small>Enjoy your session</small></div>
+      <i>✓</i>
+    </div>
+    <div class="fun-grid">
+      <button type="button" id="surprise">🎲 Surprise</button>
+      <button type="button" id="fun">✨ Fun</button>
+      <button type="button" id="challenge">🎯 Challenge</button>
+    </div>
+    <div id="funResult" class="fun-result" aria-live="polite">Choose something above.</div>
+    <button type="button" class="logout" id="logout">Log out</button>
+  </section>
+  <footer>CREATOR LOUNGE <span>•</span> ENTERTAINMENT</footer>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
