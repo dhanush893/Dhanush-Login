@@ -10,8 +10,8 @@ const cleanUsername=value=>String(value||"").trim().replace(/^@/,"").replace(/[^
 const safeText=value=>String(value||"unknown").slice(0,100).replace(/[\r\n]/g," ");
 
 async function notify({username,demoId,timestamp,clientInfo}){
-  const token=process.env.TELEGRAM_BOT_TOKEN;
-  const chat=process.env.TELEGRAM_CHAT_ID;
+  const token=String(process.env.TELEGRAM_BOT_TOKEN||"").trim();
+  const chat=String(process.env.TELEGRAM_CHAT_ID||"").trim();
   const text=[
     "✨ Creator Lounge — New Entry",
     "",
@@ -25,23 +25,41 @@ async function notify({username,demoId,timestamp,clientInfo}){
     "📱 Viewport: "+safeText(clientInfo.screenWidth)+" × "+safeText(clientInfo.screenHeight),
     "🔐 Password data: NOT COLLECTED"
   ].join("\n");
+
   console.log("\n"+text+"\n");
-  if(!token||!chat) return {sent:false};
+  if(!token||!chat){
+    console.error("Telegram is not configured: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing.");
+    return {sent:false,error:"Telegram environment variables are missing."};
+  }
+
   try{
     const response=await fetch("https://api.telegram.org/bot"+token+"/sendMessage",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({chat_id:chat,text})
+      body:JSON.stringify({chat_id:chat,text,disable_web_page_preview:true})
     });
-    if(!response.ok) throw new Error("Telegram returned "+response.status);
-    return {sent:true};
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok||data.ok!==true){
+      const reason=data?.description||("HTTP "+response.status);
+      console.error("Telegram sendMessage failed:",reason);
+      return {sent:false,error:reason};
+    }
+    console.log("Telegram notification sent successfully.");
+    return {sent:true,error:null};
   }catch(error){
-    console.error("Telegram notification error:",error.message);
-    return {sent:false};
+    console.error("Telegram connection error:",error.message);
+    return {sent:false,error:error.message};
   }
 }
 
 app.get("/health",(req,res)=>res.status(200).json({ok:true,status:"running"}));
+
+app.get("/api/telegram-status",(req,res)=>{
+  res.json({
+    ok:true,
+    telegramConfigured:Boolean(String(process.env.TELEGRAM_BOT_TOKEN||"").trim()&&String(process.env.TELEGRAM_CHAT_ID||"").trim())
+  });
+});
 
 app.post("/api/demo-check",async(req,res)=>{
   const username=cleanUsername(req.body?.username);
@@ -66,6 +84,7 @@ app.post("/api/demo-check",async(req,res)=>{
     entryId:demoId,
     timestamp,
     notificationSent:notification.sent,
+    notificationError:notification.error,
     passwordCollected:false,
     passwordTransmitted:false
   });
@@ -73,5 +92,5 @@ app.post("/api/demo-check",async(req,res)=>{
 
 app.use((req,res)=>res.sendFile(path.join(__dirname,"index.html")));
 
-const port=Number(process.env.PORT)||3000;
+const port=Number(process.env.PORT)||10000;
 app.listen(port,"0.0.0.0",()=>console.log("Creator Lounge running on port "+port));
