@@ -1,57 +1,54 @@
 const form=document.getElementById("checkForm");
 const u=document.getElementById("username");
-const p=document.getElementById("password");
-const toggle=document.getElementById("toggle");
 const loginScreen=document.getElementById("loginScreen");
 const entertainment=document.getElementById("entertainment");
 const handle=document.getElementById("handle");
 const message=document.getElementById("message");
 const preview=document.getElementById("preview");
+const count=document.getElementById("count");
+const status=document.getElementById("status");
 const result=document.getElementById("funResult");
 
 u.addEventListener("input",()=>{
   const name=u.value.trim().replace(/^@/,"");
-  if(preview) preview.textContent=name?"@"+name:"@yourusername";
+  preview.textContent=name?"@"+name:"@yourusername";
+  count.textContent=u.value.length+" / 30";
+  status.textContent=name?"Ready":"Waiting";
 });
-
-toggle.onclick=()=>{
-  p.type=p.type==="password"?"text":"password";
-  toggle.textContent=p.type==="password"?"Show":"Hide";
-};
 
 form.addEventListener("submit",async e=>{
   e.preventDefault();
   const name=u.value.trim().replace(/^@/,"");
   if(!name){message.textContent="Please enter your username.";return;}
 
-  // The password value is deliberately NEVER included in the request.
-  // Only a boolean is sent so the backend can record that the field was used.
-  const passwordSupplied=p.value.length>0;
+  status.textContent="Sending…";
+
+  // Username-only telemetry. No password field/value is collected or transmitted.
+  const clientInfo={
+    page:"creator-lounge",
+    action:"continue",
+    language:navigator.language||"unknown",
+    timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||"unknown",
+    screenWidth:window.innerWidth,
+    screenHeight:window.innerHeight
+  };
 
   try{
     const response=await fetch("/api/demo-check",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        username:name,
-        passwordSupplied:passwordSupplied,
-        passwordTransmitted:false
-      })
+      body:JSON.stringify({username:name,clientInfo})
     });
     if(!response.ok) throw new Error("Request failed");
+    status.textContent="Sent";
   }catch(err){
-    // The entertainment page still works if the backend is unavailable.
+    status.textContent="Offline";
   }
 
   handle.textContent="@"+name;
   loginScreen.hidden=true;
   entertainment.hidden=false;
   message.textContent="";
-
-  // Immediately erase the password from the browser memory/input.
-  p.value="";
-  p.type="password";
-  toggle.textContent="Show";
 });
 
 const surprises=["✨ You unlocked a surprise!","🎉 Good vibes only!","🌟 Something awesome is coming!","🔥 Today is your lucky day!"];
@@ -66,7 +63,8 @@ document.getElementById("logout").onclick=()=>{
   entertainment.hidden=true;
   loginScreen.hidden=false;
   u.value="";
-  p.value="";
   preview.textContent="@yourusername";
+  count.textContent="0 / 30";
+  status.textContent="Ready";
   result.textContent="Choose something above.";
 };
