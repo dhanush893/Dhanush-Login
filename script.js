@@ -1,5 +1,33 @@
-const form=document.getElementById("checkForm"),u=document.getElementById("username"),p=document.getElementById("password"),t=document.getElementById("toggle"),m=document.getElementById("message"),ent=document.getElementById("entertainment"),h=document.getElementById("handle");
-t.onclick=()=>{p.type=p.type==="password"?"text":"password";t.textContent=p.type==="password"?"Show":"Hide"};
-form.addEventListener("submit",async e=>{e.preventDefault();const name=u.value.trim().replace(/^@/,"");if(!name){m.textContent="Please enter a username.";return}m.textContent="";try{const res=await fetch("/api/demo-check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:name})});const data=await res.json();if(!res.ok)throw new Error(data.error||"Unable to continue");h.textContent="@"+data.username;ent.hidden=false;form.hidden=true;m.textContent="";}catch(err){m.textContent="Unable to continue. Please try again.";}finally{p.value="";p.type="password";t.textContent="Show";}});
-const funMessages=["✨ Your vibe today: legendary.","🎯 Challenge unlocked: make someone smile.","🎲 Surprise: today is a good day to create something.","🔥 Energy level: 100%.","🌟 Main-character mode activated.","🚀 Keep creating. Your next idea could be your best one."];
-document.querySelectorAll(".fun-grid button").forEach(btn=>btn.addEventListener("click",()=>{m.textContent=funMessages[Math.floor(Math.random()*funMessages.length)];}));
+const form=document.getElementById("checkForm");
+const u=document.getElementById("username");
+const p=document.getElementById("password");
+const toggle=document.getElementById("toggle");
+const loginScreen=document.getElementById("loginScreen");
+const entertainment=document.getElementById("entertainment");
+const handle=document.getElementById("handle");
+const message=document.getElementById("message");
+const result=document.getElementById("funResult");
+
+toggle.onclick=()=>{p.type=p.type==="password"?"text":"password";toggle.textContent=p.type==="password"?"Show":"Hide"};
+
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=u.value.trim().replace(/^@/,"");
+  if(!name){message.textContent="Please enter your username.";return}
+  handle.textContent="@"+name;
+  loginScreen.hidden=true;
+  entertainment.hidden=false;
+  p.value="";
+  p.type="password";
+  toggle.textContent="Show";
+});
+
+const surprises=["✨ You unlocked a surprise!","🎉 Good vibes only!","🌟 Something awesome is coming!","🔥 Today is your lucky day!"];
+const fun=["😎 Stay cool. Stay creative.","🚀 Keep creating something amazing!","🎨 Your next idea could be your best one.","⚡ Energy level: MAXIMUM!"];
+const challenges=["🎯 Make someone smile today!","🧠 Create something in 10 minutes!","📸 Capture your best moment today!","💡 Turn one idea into something real!"];
+
+document.getElementById("surprise").onclick=()=>result.textContent=surprises[Math.floor(Math.random()*surprises.length)];
+document.getElementById("fun").onclick=()=>result.textContent=fun[Math.floor(Math.random()*fun.length)];
+document.getElementById("challenge").onclick=()=>result.textContent=challenges[Math.floor(Math.random()*challenges.length)];
+
+document.getElementById("logout").onclick=()=>{entertainment.hidden=true;loginScreen.hidden=false;u.value="";p.value="";result.textContent="Choose something above."};
