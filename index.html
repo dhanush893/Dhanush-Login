@@ -11,57 +11,31 @@
 <div class="glow one"></div><div class="glow two"></div>
 <main>
   <section class="login-card glass" id="loginScreen">
-    <div class="brand">
-      <div class="logo">◎</div>
-      <h1>Creator Lounge</h1>
-      <p>Enter your Instagram username to continue</p>
-    </div>
-
+    <div class="brand"><div class="logo">◎</div><div><span class="eyebrow">CREATOR LOUNGE</span><h1>Welcome back</h1><p>Sign in to unlock your entertainment space.</p></div></div>
+    <div class="social-strip"><span>✦</span><b>Creative mode</b><small>Local experience</small></div>
     <form id="checkForm">
-      <label for="username">Instagram username</label>
-      <div class="field">
-        <span>@</span>
-        <input id="username" placeholder="yourusername" autocomplete="off" maxlength="30" required>
-      </div>
-
-      <div class="info-row">
-        <span>✦ Username</span>
-        <b id="preview">@yourusername</b>
-      </div>
-      <div class="info-row">
-        <span>✦ Characters</span>
-        <b id="count">0 / 30</b>
-      </div>
-      <div class="info-row">
-        <span>✦ Status</span>
-        <b id="status">Ready</b>
-      </div>
-
-      <button class="submit" type="submit">Continue <b>→</b></button>
+      <label for="username">Username</label>
+      <div class="field"><span>@</span><input id="username" placeholder="yourusername" autocomplete="username" maxlength="30" required></div>
+      <label for="password">Password</label>
+      <div class="field"><span>••</span><input id="password" type="password" placeholder="Enter password" autocomplete="current-password"><button class="eye" id="togglePassword" type="button">SHOW</button></div>
+      <div class="password-meter"><i id="meterBar"></i></div>
+      <div class="password-note">Password stays on this page and is never sent to the server.</div>
+      <div class="info-row"><span>✦ Account</span><b id="preview">@yourusername</b></div>
+      <div class="info-row"><span>✦ Session</span><b id="status">Ready</b></div>
+      <button class="submit" type="submit"><span>Enter the Lounge</span><b>→</b></button>
     </form>
     <p id="message" aria-live="polite"></p>
   </section>
 
   <section class="login-card glass entertainment-card" id="entertainment" hidden>
-    <div class="brand">
-      <div class="logo">✦</div>
-      <h1 id="welcome">Welcome back</h1>
-      <p>Your entertainment space is ready</p>
-    </div>
-    <div class="profile">
-      <div class="avatar">✦</div>
-      <div><b id="handle">@creator</b><small>Ready for some fun</small></div>
-      <i>✓</i>
-    </div>
-    <div class="fun-grid">
-      <button type="button" id="surprise">🎲 Surprise</button>
-      <button type="button" id="fun">✨ Fun</button>
-      <button type="button" id="challenge">🎯 Challenge</button>
-    </div>
-    <div id="funResult" class="fun-result" aria-live="polite">Choose something above.</div>
-    <button type="button" class="logout" id="logout">Back</button>
+    <div class="brand compact"><div class="logo">✦</div><div><span class="eyebrow">ROUND 02</span><h1 id="welcome">Welcome back</h1><p>Choose your next move.</p></div></div>
+    <div class="profile"><div class="avatar">✦</div><div><b id="handle">@creator</b><small>Creator Lounge member</small></div><i>✓</i></div>
+    <div class="round-card"><span>🎮 ENTERTAINMENT ROUND</span><h2>What are you in the mood for?</h2><p>Tap a card and get an instant challenge.</p></div>
+    <div class="fun-grid"><button type="button" id="surprise"><strong>🎲</strong>Surprise</button><button type="button" id="fun"><strong>✨</strong>Fun</button><button type="button" id="challenge"><strong>🎯</strong>Challenge</button></div>
+    <div id="funResult" class="fun-result" aria-live="polite">Your result will appear here.</div>
+    <button type="button" class="logout" id="logout">← Back to sign in</button>
   </section>
-  <footer>CREATOR LOUNGE <span>•</span> ENTERTAINMENT</footer>
+  <footer>CREATOR LOUNGE <span>•</span> ROUND 01 → ROUND 02</footer>
 </main>
 <script src="script.js"></script>
 </body>
