@@ -81,7 +81,7 @@ form.addEventListener("submit",async e=>{
     handle.textContent="@"+name;
     loginScreen.hidden=true;
     gameScreen.hidden=false;
-    password.value="";
+    password.value="true";
     message.textContent="";
     resetSessionStats();
     await postEvent("session-start",{message:"Game session started"});
